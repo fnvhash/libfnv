@@ -17,4 +17,10 @@ void fnv128UpdateBuffer(uint64_t hval[2], const void *buf, uint64_t len);
 void fnv128UpdateString(uint64_t hval[2], const char *str);
 void fnv128ResultHex(char result[33], const uint64_t hval[2]);
 
+void fnv256Init(uint64_t hval[4]);
+void fnv256UpdateChar(uint64_t hval[4], unsigned char ch);
+void fnv256UpdateBuffer(uint64_t hval[4], const void *buf, uint64_t len);
+void fnv256UpdateString(uint64_t hval[4], const char *str);
+void fnv256ResultHex(char result[65], const uint64_t hval[4]);
+
 #endif

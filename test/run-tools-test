@@ -21,17 +21,20 @@ if test ! -x tools/fnv32 ; then
   make
 fi
 
-test $(printf "" | ./tools/fnv32) = "811c9dc5"
-test $(printf "" | ./tools/fnv64) = "cbf29ce484222325"
-test $(printf "" | ./tools/fnv128) = "6c62272e07bb014262b821756295c58d"
+test $(printf "" | ./tools/fnv32sum) = "811c9dc5"
+test $(printf "" | ./tools/fnv64sum) = "cbf29ce484222325"
+test $(printf "" | ./tools/fnv128sum) = "6c62272e07bb014262b821756295c58d"
+test $(printf "" | ./tools/fnv256sum) = "dd268dbcaac550362d98c384c4e576ccc8b1536847b6bbb31023b4c8caee0535"
 
-test $(printf "a" | ./tools/fnv32) = "e40c292c"
-test $(printf "a" | ./tools/fnv64) = "af63dc4c8601ec8c"
-test $(printf "a" | ./tools/fnv128) = "d228cb696f1a8caf78912b704e4a8964"
+test $(printf "a" | ./tools/fnv32sum) = "e40c292c"
+test $(printf "a" | ./tools/fnv64sum) = "af63dc4c8601ec8c"
+test $(printf "a" | ./tools/fnv128sum) = "d228cb696f1a8caf78912b704e4a8964"
+test $(printf "a" | ./tools/fnv256sum) = "63323fb0f35303ec28dc751d0a33bdfa4de6a99b7266494f6183b2716811637c"
 
-test $(printf "foobar" | ./tools/fnv32) = "bf9cf968"
-test $(printf "foobar" | ./tools/fnv64) = "85944171f73967e8"
-test $(printf "foobar" | ./tools/fnv128) = "343e1662793c64bf6f0d3597ba446f18"
+test $(printf "foobar" | ./tools/fnv32sum) = "bf9cf968"
+test $(printf "foobar" | ./tools/fnv64sum) = "85944171f73967e8"
+test $(printf "foobar" | ./tools/fnv128sum) = "343e1662793c64bf6f0d3597ba446f18"
+test $(printf "foobar" | ./tools/fnv256sum) = "b055ea2f306cadad4f0f81c02d3889dc32453dad5ae35b753ba1a91084af3428"
 
 echo "PASSED"
 
