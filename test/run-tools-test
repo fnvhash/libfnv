@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+if test ! -f Makefile.in ; then
+  ./autogen
+fi
+
+if test ! -f Makefile ; then
+  ./configure
+fi
+
+if test ! -x tools/fnv64 ; then
+  make
+fi
+
+if test ! -x tools/fnv32 ; then
+  make
+fi
+
+test $(printf "" | ./tools/fnv32) = "811c9dc5"
+test $(printf "" | ./tools/fnv64) = "cbf29ce484222325"
+
+test $(printf "a" | ./tools/fnv32) = "e40c292c"
+test $(printf "a" | ./tools/fnv64) = "af63dc4c8601ec8c"
+
+test $(printf "foobar" | ./tools/fnv32) = "bf9cf968"
+test $(printf "foobar" | ./tools/fnv64) = "85944171f73967e8"
+
+echo "PASSED"
+
+exit 0

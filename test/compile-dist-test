@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+if test ! -f Makefile.in ; then
+  ./autogen
+fi
+if test ! -f Makefile ; then
+  ./configure
+fi
+make dist-gzip
+cur=$(pwd)
+mkdir /tmp/t$$
+cd /tmp/t$$
+tar xvfz $cur/libfnv*.tar.gz
+cd */
+./configure
+make
+test -x tools/fnv64
+if test -x test/unit/fnvtest ; then
+  ./test/unit/fnvtest
+fi
+rm -rf /tmp/t$$
+exit 0

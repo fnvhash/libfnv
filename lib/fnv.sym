@@ -1,0 +1,10 @@
+fnv32Init
+fnv32ResultHex
+fnv32UpdateChar
+fnv32UpdateBuffer
+fnv32UpdateString
+fnv64Init
+fnv64ResultHex
+fnv64UpdateChar
+fnv64UpdateBuffer
+fnv64UpdateString

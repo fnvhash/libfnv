@@ -1,0 +1,9 @@
+machine:
+  pre:
+    - sudo apt-get install -y automake autoconf
+    - sudo apt-get install -y libtool check xz-utils
+    - sudo apt-get remove -y texlive-base
+
+test:
+  override:
+    - ./test/all

@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+if test ! -f Makefile.in ; then
+  ./autogen
+fi
+if test ! -f Makefile ; then
+  ./configure
+fi
+if test ! -x tools/fnv64 ; then
+  make
+fi
+if test ! -x tools/fnv32 ; then
+  make
+fi
+exit 0

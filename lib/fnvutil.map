@@ -1,0 +1,8 @@
+ LIBRARY_1.0 {
+        global:
+          fnvOpenFile;
+          fnvIterateThroughFile;
+
+        local:
+            *;
+    };

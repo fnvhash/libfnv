@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+includedir=@includedir@
+libdir=@libdir@
+
+Name: fnv
+Description: FNV Hash Function library in C
+URL: http://fnvhash.com/
+Version: @PACKAGE_VERSION@
+Cflags: -I${includedir}
+Libs: -L${libdir} -lfnv
+Libs.private: @FNV1_LIBS@
