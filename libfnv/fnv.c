@@ -1,25 +1,7 @@
 #include "include/fnv/fnvtop.h"
 #include "include/fnv/libfnv.h"
 
-void fnv32Init(uint32_t *hval) {
-  *hval = 2166136261;
-}
-
-void fnv32UpdateChar(uint32_t *hval, unsigned char ch) {
-  *hval ^= ch;
-  *hval *= 16777619;
-}
-
-void fnv32UpdateBuffer(uint32_t *hval, void *buf, uint64_t len) {
-  size_t i;
-  for (i = 0; i < len; ++i) {
-    unsigned char ch = ((unsigned char *) buf)[i];
-    *hval ^= ch;
-    *hval *= 16777619;
-  }
-}
-
-void fnv32UpdateString(uint32_t *hval, char *str) {
+void fnv32UpdateString(uint32_t *hval, const char *str) {
   fnv32UpdateBuffer(hval, str, strlen(str));
 }
 
@@ -42,10 +24,6 @@ static void genericResultHex32(char *result, int howBig, const uint32_t *hval) {
 
 void fnv32ResultHex(char result[9], const uint32_t *hval) {
   genericResultHex32(result, 4, hval);
-}
-
-void fnv64Init(uint64_t *hval) {
-  *hval = 14695981039346656037ULL;
 }
 
 uint64_t fnv64ResultUInt64(const uint64_t *hval) {

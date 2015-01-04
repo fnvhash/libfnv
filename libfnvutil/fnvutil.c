@@ -16,6 +16,32 @@ FILE *fnvOpenFile(const char *filename)
   exit(1);
 }
 
+void fnvApplyTestPattern(uint64_t howLong,
+  void (*func)(void *context, void *buf, uint64_t len), void *context)
+{
+  unsigned char c = 0;
+  unsigned char step = 1;
+  char buf[16384];
+  int i;
+  for (i = 0; i < sizeof(buf); ++i) {
+    buf[i] = c;
+    c += step;
+    step = (step + 1);
+    if (step == 19) { step = 0; }
+  }
+  for (;;) {
+    uint64_t wantedLen = sizeof(buf);
+    uint64_t len = wantedLen > howLong ? howLong : wantedLen;
+    if (len > 0) {
+      func(context, buf, len);
+      howLong -= len;
+    }
+    else {
+      break;
+    }
+  }
+}
+
 void fnvIterateThroughFile(const char *filename,
   void (*func)(void *context, void *buf, uint64_t len), void *context)
 {

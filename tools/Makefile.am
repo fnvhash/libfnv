@@ -1,4 +1,8 @@
-bin_PROGRAMS=fnv64 fnv32
+bin_PROGRAMS=fnv32 fnv64 fnv128
+
+fnv128_SOURCES=fnv128.c
+fnv128_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
+fnv128_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
 
 fnv64_SOURCES=fnv64.c
 fnv64_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil

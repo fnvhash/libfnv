@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <fnv.h>
+#include <kara128.h>
 
 #test fnv32t001_test
   uint32_t hval; char result[9];
@@ -53,3 +54,73 @@
   fnv64ResultHex(result, &hval);
   ck_assert_str_eq(result, "85944171f73967e8");
 
+#test fnv128t001kara_test
+  struct Kara128 a;
+  fnvInitKara128from64(&a, 7);
+  ck_assert_int_eq(a.d[1], 0);
+  ck_assert_int_eq(a.d[0], 7);
+
+#test fnv128t002kara_test
+  struct Kara128 a, b, c;
+  fnvInitKara128from64(&a, 7);
+  fnvInitKara128from64(&b, 8);
+  c = a;
+  fnvKara128add(&c, &b);
+  ck_assert_int_eq(c.d[1], 0);
+  ck_assert_int_eq(c.d[0], 15);
+
+#test fnv128t003kara_test
+  struct Kara128 a, b, c;
+  fnvInitKara128from64(&a, 7);
+  fnvInitKara128from64(&b, 8);
+  c = a;
+  fnvKara128mul(&c, &b);
+  ck_assert_int_eq(c.d[1], 0);
+  ck_assert_int_eq(c.d[0], 56);
+
+#test fnv128t004kara_test
+  struct Kara128 a;
+  char result[33];
+  fnvKara128DecIn(&a, "65535");
+  ck_assert_int_eq(a.d[1], 0);
+  ck_assert_int_eq(a.d[0], 65535);
+  fnvKara128HexOut(result, &a);
+  ck_assert_str_eq(result, "0000000000000000000000000000ffff");
+
+#test fnv128t005kara_test
+  struct Kara128 a;
+  char result[33];
+  fnvKara128DecIn(&a, "309485009821345068724781371");
+  fnvKara128HexOut(result, &a);
+  ck_assert_str_eq(result, "0000000001000000000000000000013b");
+
+#test fnv128t006_test
+  uint64_t hval[2];
+  char result[65];
+  fnv128Init(hval);
+  fnv128ResultHex(result, hval);
+  ck_assert_str_eq(result, "6c62272e07bb014262b821756295c58d");
+
+#test fnv128t007_test
+  uint64_t hval[2];
+  char result[65];
+  fnv128Init(hval);
+  fnv128UpdateChar(hval, 'a');
+  fnv128ResultHex(result, hval);
+  ck_assert_str_eq(result, "d228cb696f1a8caf78912b704e4a8964");
+
+#test fnv128t008_test
+  uint64_t hval[2];
+  char result[65];
+  fnv128Init(hval);
+  fnv128UpdateString(hval, "foobar");
+  fnv128ResultHex(result, hval);
+  ck_assert_str_eq(result, "343e1662793c64bf6f0d3597ba446f18");
+
+#test fnv128t009_test
+  uint64_t hval[2];
+  char result[65];
+  fnv128Init(hval);
+  fnv128UpdateString(hval, "http://fnvhash.com/");
+  fnv128ResultHex(result, hval);
+  ck_assert_str_eq(result, "86cdf6782de1589b910a92301accbd95");

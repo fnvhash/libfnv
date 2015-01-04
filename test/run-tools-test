@@ -9,6 +9,10 @@ if test ! -f Makefile ; then
   ./configure
 fi
 
+if test ! -x tools/fnv128 ; then
+  make
+fi
+
 if test ! -x tools/fnv64 ; then
   make
 fi
@@ -19,12 +23,15 @@ fi
 
 test $(printf "" | ./tools/fnv32) = "811c9dc5"
 test $(printf "" | ./tools/fnv64) = "cbf29ce484222325"
+test $(printf "" | ./tools/fnv128) = "6c62272e07bb014262b821756295c58d"
 
 test $(printf "a" | ./tools/fnv32) = "e40c292c"
 test $(printf "a" | ./tools/fnv64) = "af63dc4c8601ec8c"
+test $(printf "a" | ./tools/fnv128) = "d228cb696f1a8caf78912b704e4a8964"
 
 test $(printf "foobar" | ./tools/fnv32) = "bf9cf968"
 test $(printf "foobar" | ./tools/fnv64) = "85944171f73967e8"
+test $(printf "foobar" | ./tools/fnv128) = "343e1662793c64bf6f0d3597ba446f18"
 
 echo "PASSED"
 

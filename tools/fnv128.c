@@ -2,30 +2,30 @@
 #include <fnvutil.h>
 #include <stdio.h>
 
-void updateHash64(void *context, void *buf, uint64_t length)
+void updateHash128(void *context, void *buf, uint64_t length)
 {
   uint64_t *hval = (uint64_t *) context;
-  fnv64UpdateBuffer(hval, buf, length);
+  fnv128UpdateBuffer(hval, buf, length);
 }
 
 void printVersion(void)
 {
-  printf("fnv64 version 0.8.1\n");
+  printf("fnv128 version 0.8.1\n");
 }
 
 void printHelp(void)
 {
-  printf("Usage:\n\nfnv64 [FILE]...\n\n"
+  printf("Usage:\n\nfnv128 [FILE]...\n\n"
          "With no arguments it will read from standard input.\n"
-         "This command will print the FNV-1a 64-bit hash for each listed file in order.\n");
+         "This command will print the FNV-1a 128-bit hash for each listed file in order.\n");
 }
 
 int main(int argc, char **argv)
 {
-  uint64_t hval;
+  uint64_t hval[2];
   int i;
   int didSomething = 0;
-  char result[17];
+  char result[33];
   int nomoreopts = 0;
   for (i = 1; i < argc; ++i) {
     char *cur = argv[i];
@@ -45,16 +45,16 @@ int main(int argc, char **argv)
       printf("Error: unrecognized option: %s\n", cur);
       exit(1);
     }
-    fnv64Init(&hval);
-    fnvIterateThroughFile(cur, updateHash64, &hval);
-    fnv64ResultHex(result, &hval);
+    fnv128Init(hval);
+    fnvIterateThroughFile(cur, updateHash128, hval);
+    fnv128ResultHex(result, hval);
     printf("%s\n", result);
     didSomething = 1;
   }
   if (!didSomething) {
-    fnv64Init(&hval);
-    fnvIterateThroughFile("-", updateHash64, &hval);
-    fnv64ResultHex(result, &hval);
+    fnv128Init(hval);
+    fnvIterateThroughFile("-", updateHash128, hval);
+    fnv128ResultHex(result, hval);
     printf("%s\n", result);
   }
   return 0;

@@ -2,7 +2,7 @@
 set -e
 p=0
 f=0
-for i in test/compile*-test test/run*-test ; do
+for i in test/compile*-test test/run*-test test/unit/benchmark ; do
   if ./$i ; then
     p=$(expr $p + 1)
     m=PASSED

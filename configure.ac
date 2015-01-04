@@ -6,12 +6,12 @@ AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE()
 LT_INIT()
 LT_PREREQ([2.2])
-AM_PROG_AS()
 AC_PROG_CC()
+CFLAGS="$CFLAGS -O3 -Wall"
 AC_CONFIG_SRCDIR([tools/fnv64.c])
 AC_CONFIG_HEADERS([config.h])
-AC_PROG_CC
 RRA_LD_VERSION_SCRIPT
+
 AC_CONFIG_FILES([Makefile
                  libfnv/Makefile
                  libfnvutil/Makefile
@@ -21,16 +21,6 @@ AC_CONFIG_FILES([Makefile
                 ])
 
 AC_PATH_PROG([HAVE_CHECKMK_PATH], [checkmk], [notfound])
-
-HAVE_USABLE_ASM=no
-if $CC libfnv/asmtest/fastfnv64a.s libfnv/asmtest/testasm.c ; then
-  if ./a.out ; then
-    HAVE_USABLE_ASM=yes
-    rm -f a.out
-  fi
-fi
-
-AM_CONDITIONAL([HAVE_USABLE_ASM], [ test "x$HAVE_USABLE_ASM" = "xyes" ])
 
 AM_CONDITIONAL([HAVE_CHECKMK], [ test ! "x$HAVE_CHECKMK_PATH" = "xnotfound" ])
 

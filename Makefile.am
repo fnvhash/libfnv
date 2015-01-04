@@ -4,7 +4,7 @@ SUBDIRS = libfnv libfnvutil tools test
 EXTRA_DIST = lib/fnv.map lib/fnv.sym lib/fnvutil.map lib/fnvutil.sym \
              lib/libfnv.pc.in
 
-dist_man_MANS = man/fnv64.1 man/fnv32.1
+dist_man_MANS = man/fnv32.1 man/fnv64.1 man/fnv128.1
 
 pkgconfigdir = $(libdir)/pkgconfig
 nodist_pkgconfig_DATA = lib/libfnv.pc
