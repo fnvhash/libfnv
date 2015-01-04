@@ -1,13 +1,21 @@
-bin_PROGRAMS=fnv32 fnv64 fnv128
+bin_PROGRAMS=fnv32sum fnv64sum fnv128sum fnv256sum
 
-fnv128_SOURCES=fnv128.c
-fnv128_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
-fnv128_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+bin_SCRIPTS=fnv512sum fnv1024sum
 
-fnv64_SOURCES=fnv64.c
-fnv64_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
-fnv64_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+EXTRA_DIST=fnv512sum fnv1024sum
 
-fnv32_SOURCES=fnv32.c
-fnv32_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
-fnv32_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+fnv256sum_SOURCES=fnv256sum.c
+fnv256sum_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
+fnv256sum_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+
+fnv128sum_SOURCES=fnv128sum.c
+fnv128sum_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
+fnv128sum_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+
+fnv64sum_SOURCES=fnv64sum.c
+fnv64sum_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
+fnv64sum_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm
+
+fnv32sum_SOURCES=fnv32sum.c
+fnv32sum_CPPFLAGS=-I../libfnv/include -Wall -I../libfnvutil
+fnv32sum_LDADD =../libfnv/libfnv.la ../libfnvutil/libfnvutil.la -lm

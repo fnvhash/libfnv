@@ -5,7 +5,7 @@ else
 endif
 
 lib_LTLIBRARIES = libfnv.la
-libfnv_la_SOURCES = fnv.c kara128.c fnv128mp.c
+libfnv_la_SOURCES = fnv.c arith128.c fnv128mp.c arith256.c fnv256mp.c
 libfnv_la_CPPFLAGS = -I$(top_srcdir)/include
 libfnv_la_LDFLAGS = $(VERSION_LDFLAGS)
 include_HEADERS =   include/fnv.h
@@ -15,4 +15,4 @@ pubinclude_HEADERS =                                    \
                        include/fnv/fnvtop.h             \
                        include/fnv/libfnv.h
 
-EXTRA_DIST = kara128.h
+EXTRA_DIST = arith128.h arith256.h

@@ -1,12 +1,12 @@
 #include "include/fnv/fnvtop.h"
 #include "include/fnv/libfnv.h"
-#include "kara128.h"
+#include "arith128.h"
 
-struct Kara128 fnv128_offset, fnv128_prime;
+struct Arith128 fnv128_offset, fnv128_prime;
 
 static void initParameters(void) {
-  fnvKara128DecIn(&fnv128_offset, "144066263297769815596495629667062367629");
-  fnvKara128DecIn(&fnv128_prime, "309485009821345068724781371");
+  fnvArith128DecIn(&fnv128_offset, "144066263297769815596495629667062367629");
+  fnvArith128DecIn(&fnv128_prime, "309485009821345068724781371");
 }
 
 void fnv128Init(uint64_t hval[2]) {
@@ -18,14 +18,14 @@ void fnv128Init(uint64_t hval[2]) {
 }
 
 void fnv128UpdateChar(uint64_t hval[2], unsigned char ch) {
-  struct Kara128 k;
+  struct Arith128 k;
   if (fnv128_offset.d[0] == 0) {
     initParameters();
   }
   k.d[0] = hval[0];
   k.d[1] = hval[1];
-  fnvKara128xor8(&k, ch);
-  fnvKara128mul(&k, &fnv128_prime);
+  fnvArith128xor8(&k, ch);
+  fnvArith128mul(&k, &fnv128_prime);
   hval[0] = k.d[0];
   hval[1] = k.d[1];
 }

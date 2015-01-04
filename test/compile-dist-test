@@ -14,7 +14,7 @@ tar xvfz $cur/libfnv*.tar.gz
 cd */
 ./configure
 make
-test -x tools/fnv64
+test -x tools/fnv64sum
 if test -x test/unit/fnvtest ; then
   ./test/unit/fnvtest
 fi

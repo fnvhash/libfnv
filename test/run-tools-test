@@ -21,17 +21,30 @@ if test ! -x tools/fnv32 ; then
   make
 fi
 
-test $(printf "" | ./tools/fnv32) = "811c9dc5"
-test $(printf "" | ./tools/fnv64) = "cbf29ce484222325"
-test $(printf "" | ./tools/fnv128) = "6c62272e07bb014262b821756295c58d"
+test $(printf "" | ./tools/fnv32sum) = "811c9dc5"
+test $(printf "" | ./tools/fnv64sum) = "cbf29ce484222325"
+test $(printf "" | ./tools/fnv128sum) = "6c62272e07bb014262b821756295c58d"
+test $(printf "" | ./tools/fnv256sum) = "dd268dbcaac550362d98c384c4e576ccc8b1536847b6bbb31023b4c8caee0535"
+test $(printf "" | ./tools/fnv512sum) = "b86db0b1171f4416dca1e50f309990acac87d059c90000000000000000000d21e948f68a34c192f62ea79bc942dbe7ce182036415f56e34bac982aac4afe9fd9"
+test $(printf "" | ./tools/fnv1024sum) = "0000000000000000005f7a76758ecc4d32e56d5a591028b74b29fc4223fdada16c3bf34eda3674da9a21d9000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004c6d7eb6e73802734510a555f256cc005ae556bde8cc9c6a93b21aff4b16c71ee90b3"
 
-test $(printf "a" | ./tools/fnv32) = "e40c292c"
-test $(printf "a" | ./tools/fnv64) = "af63dc4c8601ec8c"
-test $(printf "a" | ./tools/fnv128) = "d228cb696f1a8caf78912b704e4a8964"
+test $(printf "a" | ./tools/fnv32sum) = "e40c292c"
+test $(printf "a" | ./tools/fnv64sum) = "af63dc4c8601ec8c"
+test $(printf "a" | ./tools/fnv128sum) = "d228cb696f1a8caf78912b704e4a8964"
+test $(printf "a" | ./tools/fnv256sum) = "63323fb0f35303ec28dc751d0a33bdfa4de6a99b7266494f6183b2716811637c"
+test $(printf "a" | ./tools/fnv512sum) = "e43a992dc8fc5ad7de493e3d696d6f85d64326ec07000000000000000011986f90c2532caf5be7d88291baa894a395225328b196bd6a8a643fe12cd87b27ff88"
+test $(printf "a" | ./tools/fnv1024sum) = "000000000000000098d7c19fbce653df221b9f717d3490ff95ca87fdaef30d1b823372f85b24a372f50e570000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007685cd81a491dbccc21ad06648d09a5c8cf5a78482054e91470b33dde77252caef695aa"
 
-test $(printf "foobar" | ./tools/fnv32) = "bf9cf968"
-test $(printf "foobar" | ./tools/fnv64) = "85944171f73967e8"
-test $(printf "foobar" | ./tools/fnv128) = "343e1662793c64bf6f0d3597ba446f18"
+test $(printf "foobar" | ./tools/fnv32sum) = "bf9cf968"
+test $(printf "foobar" | ./tools/fnv64sum) = "85944171f73967e8"
+test $(printf "foobar" | ./tools/fnv128sum) = "343e1662793c64bf6f0d3597ba446f18"
+test $(printf "libfnv http://fnvhash.com/ test pattern" | ./tools/fnv256sum) = "813276d0ed5c5399db0870ca16ee099278a0ce9cfb86c48cba582cecc4676542"
+test $(printf "foobar" | ./tools/fnv256sum) = "b055ea2f306cadad4f0f81c02d3889dc32453dad5ae35b753ba1a91084af3428"
+test $(printf "foobar" | ./tools/fnv512sum) = "b0ec738d9c6fd969d05f0b35f6c0ed53adcacccd8e0000004bf99f58ee4196afb9700e20110830fea5396b76280e47fd022b6e81331ca1a9ced729c364be7788"
+test $(printf "foobar" | ./tools/fnv1024sum) = "00000631175fa7ae643ad08723d312c9fd024adb91f77f6b19587197a22bcdf23727166c4572d0b985d5ae00000000000000000000000000000000000000000000000000000000000000000000000000000000000000004270d11ef418ef08b8a49e1e825e547eb39937f819222f3b7fc92a0e4707900888847a554bacec98b0"
+
+test $(printf "libfnv http://fnvhash.com/ test pattern" | ./tools/fnv512sum) = "96862e532d436f6e69f855dc479efeedd8c28872f231e99c9cb2344d41cbc1b9f7ee2dc1b7c39e21198fa61cf83265c507907532c3d405c0572d6edada960722"
+test $(printf "libfnv http://fnvhash.com/ test pattern" | ./tools/fnv1024sum) = "d8347fceda266bb8ed82ea28fc573cdc59c1bf7127ef905be33c8e08f06ceb403b996da775f73e105328d2000000000000000007b07084e314b7197bd1f00ae2d96a06fe6754a441c30e92d6b123bc265036d5eb516850b798feb26a11e9f140644af41c8af76ef87e9e4be6f05f7bf4d47f06a7a07f1ea1b3de6eaa821b698e"
 
 echo "PASSED"
 

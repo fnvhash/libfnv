@@ -1,0 +1,30 @@
+.TH FNV1024 1
+.SH NAME
+fnv1024 \- compute the FNV-1a 1024-bit hash
+.SH SYNOPSIS
+.B fnv1024 [-vh] [FILE]...
+.SH DESCRIPTION
+.PP
+The Fowler-Noll-Vo or FNV hash is a non-cryptographic hash function defined
+in an IETF draft.  The \fBfnv1024\fR command calculates the 1024-bit FNV-1a
+version of this popular hash function.  It can take one or more filename
+arguments as input and will calculate and print out the hash value in
+hexadecimal for each one with one value per output line.  If no filename
+arguments are given, standard input is assumed.
+.TP
+.PP
+.SH OPTIONS
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Print version information and exit.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help and usage information and exit.
+.TP
+.SH FILES
+
+.SH ENVIRONMENT
+.TP
+.SH DIAGNOSTICS
+none
+.SH "SEE ALSO"
