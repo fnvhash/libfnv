@@ -21,6 +21,26 @@
             fnv256UpdateBuffer;
             fnv256UpdateString;
             fnv256ResultHex;
+            fnvInit256from64;
+            fnvAdd256;
+            fnvMul256;
+            fnv512Init;
+            fnv512UpdateChar;
+            fnv512UpdateBuffer;
+            fnv512UpdateString;
+            fnv512ResultHex;
+            fnvInit512from64;
+            fnvAdd512;
+            fnvMul512;
+            fnv1024Init;
+            fnv1024UpdateChar;
+            fnv1024UpdateBuffer;
+            fnv1024UpdateString;
+            fnv1024ResultHex;
+            fnvInit1024from64;
+            fnvAdd1024;
+            fnvMul1024;
+
 
         local:
             *;

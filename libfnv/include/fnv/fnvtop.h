@@ -23,4 +23,16 @@ void fnv256UpdateBuffer(uint64_t hval[4], const void *buf, uint64_t len);
 void fnv256UpdateString(uint64_t hval[4], const char *str);
 void fnv256ResultHex(char result[65], const uint64_t hval[4]);
 
+void fnv512Init(uint64_t hval[8]);
+void fnv512UpdateChar(uint64_t hval[8], unsigned char ch);
+void fnv512UpdateBuffer(uint64_t hval[8], const void *buf, uint64_t len);
+void fnv512UpdateString(uint64_t hval[8], const char *str);
+void fnv512ResultHex(char result[129], const uint64_t hval[8]);
+
+void fnv1024Init(uint64_t hval[16]);
+void fnv1024UpdateChar(uint64_t hval[16], unsigned char ch);
+void fnv1024UpdateBuffer(uint64_t hval[16], const void *buf, uint64_t len);
+void fnv1024UpdateString(uint64_t hval[16], const char *str);
+void fnv1024ResultHex(char result[257], const uint64_t hval[16]);
+
 #endif

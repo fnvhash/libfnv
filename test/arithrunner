@@ -1,0 +1,76 @@
+#!/usr/bin/env ruby
+
+TRIALS=100
+
+def randofbits(bits)
+  hexin = [ ]
+  while hexin.size * 4 < bits
+    hexin << ['0','1','2','3','4','5','6','7',
+              '8','9','a','b','c','d','e','f'][rand(16)]
+  end
+  hexin = hexin.join('')
+  return hexin.to_i(16)
+end
+def testmult(bits,trials)
+  adderfile = File.expand_path('../arithtest', __FILE__)
+  trials.times do
+    left = randofbits(bits)
+    right = randofbits(bits)
+    wanted = (left * right) & ((1 << bits) - 1)
+    cmd=[adderfile, bits.to_s, 'mul', left.to_s(16), right.to_s(16)]
+    cmd="#{cmd.join(' ')} >/tmp/.out"
+    system(cmd)
+    File.open("/tmp/.out","r") { |file|
+      line = file.read
+      answer = line.to_i(16)
+      if (wanted == answer)
+
+  #      puts "OK"
+  #      exit(0)
+      else
+        puts "ERROR"
+        puts cmd
+        puts wanted.to_s(16)
+        puts answer.to_s(16)
+        exit(1)
+      end
+    }
+  end
+end
+def testaddition(bits,trials)
+  adderfile = File.expand_path('../arithtest', __FILE__)
+  trials.times do
+    left = randofbits(bits)
+    right = randofbits(bits)
+    wanted = (left + right) & ((1 << bits) - 1)
+    cmd=[adderfile, bits.to_s, 'add', left.to_s(16), right.to_s(16)]
+    cmd="#{cmd.join(' ')} >/tmp/.out"
+    system(cmd)
+    File.open("/tmp/.out","r") { |file|
+      line = file.read
+      answer = line.to_i(16)
+      if (wanted == answer)
+
+  #      puts "OK"
+  #      exit(0)
+      else
+        puts "ERROR"
+        puts cmd
+        puts wanted.to_s(16)
+        puts answer.to_s(16)
+        exit(1)
+      end
+    }
+  end
+end
+
+10.times do |trials_power|
+  trials = 1 << trials_power
+  6.times do |bits_power|
+    bits = 1 << (5+bits_power)
+    $stderr.puts "Bits: #{bits}  Trials: #{trials}"
+    testaddition(bits, trials)
+    testmult(bits, trials)
+  end
+end
+exit(0)
