@@ -172,18 +172,19 @@ void do_test(int is_adder, int is_mult, int bits, const char *leftstr,
     exit(0);
   }
   if (bits == 512) {
-    uint64_t left[8], right[8], result[8];
+    uint64_t left[8], right[8];
+    struct FNVHash512 result;
     read_512_hex(left,leftstr);
     read_512_hex(right,rightstr);
-    memcpy(result, left, 8*sizeof(uint64_t));
+    memcpy(&result, left, sizeof(result));
     if (is_adder) {
-      fnvAdd512(result, right);
+      fnvAdd512((uint64_t *) &result, right);
     }
     if (is_mult) {
-      fnvMul512(result, right);
+      fnvMul512((uint64_t *) &result, right);
     }
     char buf[129];
-    fnv512ResultHex(buf, result);
+    fnv512ResultHex(buf, &result);
     printf("%s\n", buf);
     exit(0);
   }

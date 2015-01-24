@@ -37,7 +37,7 @@ void updateHash256(void *context, void *buf, uint64_t length)
 
 void updateHash512(void *context, void *buf, uint64_t length)
 {
-  uint64_t *hval = (uint64_t *) context;
+  struct FNVHash512 *hval = (struct FNVHash512 *) context;
   fnv512UpdateBuffer(hval, buf, length);
 }
 
@@ -50,7 +50,8 @@ void updateHash1024(void *context, void *buf, uint64_t length)
 
 int main(int argc, char **argv)
 {
-  uint64_t hval1024[16], hval512[8], hval256[4], hval128[2], hval64;
+  uint64_t hval1024[16], hval256[4], hval128[2], hval64;
+  struct FNVHash512 hval512;
   uint32_t hval32;
   uint64_t len32=25e6;
   uint64_t len64=25e6;
@@ -90,12 +91,12 @@ int main(int argc, char **argv)
   tf256=getTime();
   printf("FNV256:%d mb/s\n",(int) (len256 /(1e6* (tf256-t0256))));
 
-  fnv512Init(hval512);
-  fnvApplyTestPattern(1, updateHash512, hval512);
+  fnv512Init(&hval512);
+  fnvApplyTestPattern(1, updateHash512, &hval512);
 
   t0512=getTime();
-  fnv512Init(hval512);
-  fnvApplyTestPattern(len512, updateHash512, hval512);
+  fnv512Init(&hval512);
+  fnvApplyTestPattern(len512, updateHash512, &hval512);
   tf512=getTime();
   printf("FNV512:%d kb/s\n",(int) (len512*1024 /(1e6* (tf512-t0512))));
 

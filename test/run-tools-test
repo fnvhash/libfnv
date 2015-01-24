@@ -9,16 +9,10 @@ if test ! -f Makefile ; then
   ./configure
 fi
 
-if test ! -x tools/fnv128 ; then
-  make
-fi
-
-if test ! -x tools/fnv64 ; then
-  make
-fi
-
-if test ! -x tools/fnv32 ; then
-  make
+if test ! -x tools/fnv128sum -o ! -x tools/fnv64sum -o ! -x tools/fnv32sum -o \
+        ! -x tools/fnv256sum -o ! -x tools/fnv512sum -o ! -x tools/fnv1024sum ; \
+then
+  make >/dev/null
 fi
 
 test $(printf "" | ./tools/fnv32sum) = "811c9dc5"

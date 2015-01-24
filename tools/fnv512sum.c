@@ -4,7 +4,7 @@
 
 void updateHash512(void *context, void *buf, uint64_t length)
 {
-  uint64_t *hval = (uint64_t *) context;
+  struct FNVHash512 *hval = (struct FNVHash512 *) context;
   fnv512UpdateBuffer(hval, buf, length);
 }
 
@@ -22,7 +22,7 @@ void printHelp(void)
 
 int main(int argc, char **argv)
 {
-  uint64_t hval[8];
+  struct FNVHash512 hval;
   int i;
   int didSomething = 0;
   char result[129];
@@ -45,16 +45,16 @@ int main(int argc, char **argv)
       printf("Error: unrecognized option: %s\n", cur);
       exit(1);
     }
-    fnv512Init(hval);
-    fnvIterateThroughFile(cur, updateHash512, hval);
-    fnv512ResultHex(result, hval);
+    fnv512Init(&hval);
+    fnvIterateThroughFile(cur, updateHash512, &hval);
+    fnv512ResultHex(result, &hval);
     printf("%s\n", result);
     didSomething = 1;
   }
   if (!didSomething) {
-    fnv512Init(hval);
-    fnvIterateThroughFile("-", updateHash512, hval);
-    fnv512ResultHex(result, hval);
+    fnv512Init(&hval);
+    fnvIterateThroughFile("-", updateHash512, &hval);
+    fnv512ResultHex(result, &hval);
     printf("%s\n", result);
   }
   return 0;

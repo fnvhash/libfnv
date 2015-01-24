@@ -25,14 +25,14 @@ void fnvKara512DecIn(uint64_t kOut[8], const char *str) {
   }
 }
 
-void fnv512Init(uint64_t hval[8]) {
+void fnv512Init(struct FNVHash512 *hval) {
   if (fnv512_offset[0] == 0) {
     initParameters();
   }
   memcpy(hval, fnv512_offset, 64);
 }
 
-void fnv512UpdateChar(uint64_t hval[8], unsigned char ch) {
+void fnv512UpdateChar(struct FNVHash512 *hval, unsigned char ch) {
   uint64_t k[8];
   if (fnv512_offset[0] == 0) {
     initParameters();
@@ -43,7 +43,7 @@ void fnv512UpdateChar(uint64_t hval[8], unsigned char ch) {
   memcpy(hval, k, 64);
 }
 
-void fnv512UpdateBuffer(uint64_t hval[8], const void *buf, uint64_t len) {
+void fnv512UpdateBuffer(struct FNVHash512 *hval, const void *buf, uint64_t len) {
   size_t i;
   for (i = 0; i < len; ++i) {
     unsigned char ch = ((unsigned char *) buf)[i];
@@ -51,7 +51,7 @@ void fnv512UpdateBuffer(uint64_t hval[8], const void *buf, uint64_t len) {
   }
 }
 
-void fnv512UpdateString(uint64_t hval[8], const char *str) {
+void fnv512UpdateString(struct FNVHash512 *hval, const char *str) {
   fnv512UpdateBuffer(hval, str, strlen(str));
 }
 
@@ -62,7 +62,7 @@ static void genericResultHex512(char *result, int howBig, const uint64_t *hval) 
   }
 }
 
-void fnv512ResultHex(char result[129], const uint64_t hval[8]) {
-  genericResultHex512(result, 7, hval);
+void fnv512ResultHex(char result[129], const struct FNVHash512 *hval) {
+  genericResultHex512(result, 7, &hval->_x[0]);
 }
 
