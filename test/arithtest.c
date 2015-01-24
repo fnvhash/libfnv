@@ -189,18 +189,19 @@ void do_test(int is_adder, int is_mult, int bits, const char *leftstr,
     exit(0);
   }
   if (bits == 1024) {
-    uint64_t left[16], right[16], result[16];
+    uint64_t left[16], right[16];
+    struct FNVHash1024 result;
     read_1024_hex(left,leftstr);
     read_1024_hex(right,rightstr);
-    memcpy(result, left, 16*sizeof(uint64_t));
+    memcpy(&result, left, 16*sizeof(uint64_t));
     if (is_adder) {
-      fnvAdd1024(result, right);
+      fnvAdd1024((uint64_t *) &result, right);
     }
     if (is_mult) {
-      fnvMul1024(result, right);
+      fnvMul1024((uint64_t *) &result, right);
     }
     char buf[257];
-    fnv1024ResultHex(buf, result);
+    fnv1024ResultHex(buf, &result);
     printf("%s\n", buf);
     exit(0);
   }

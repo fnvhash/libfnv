@@ -16,4 +16,4 @@ pubinclude_HEADERS =                                    \
                        include/fnv/fnvtop.h             \
                        include/fnv/libfnv.h
 
-EXTRA_DIST = arith128.h arith256.h arith512.h arith1024.h mgmp.h
+EXTRA_DIST = arith128.h arith256.h arith512.h arith1024.h mgmp.h ifnv.h
