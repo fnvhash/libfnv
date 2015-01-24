@@ -1,5 +1,6 @@
 #include <string.h>
 #include "arith256.h"
+#include "mgmp.h"
 
 void fnvInit256from64(uint64_t x[4], uint64_t initialValue) {
   memset(&x[1], 0, 24);

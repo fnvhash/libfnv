@@ -1,6 +1,7 @@
 #include <string.h>
 #include "../libfnv/include/fnv/fnvtop.h"
 #include "arith1024.h"
+#include "mgmp.h"
 
 void fnvInit1024from64(uint64_t x[16], uint64_t initialValue) {
   memset(&x[1], 0, 128-8);
@@ -18,6 +19,11 @@ void fnvAdd1024(uint64_t px[16], uint64_t py[16]) {
 }
 
 void fnvMul1024(uint64_t px[16], uint64_t py[16]) {
+#if 1
+  uint64_t presult[33];
+  fnv_mpn_mul((uint64_t *) presult, (const uint64_t *) px, 16, (const uint64_t *) py, 16);
+  memcpy(px, presult, 128);
+#else
   int i;
   uint64_t acc[16], dub[16], tdub[16];
   memset(acc, 0, 128);
@@ -39,6 +45,7 @@ void fnvMul1024(uint64_t px[16], uint64_t py[16]) {
     }
   }
   memcpy(px, acc, 128);
+#endif
 }
 
 void fnv1024xor8(uint64_t x[16], unsigned char c) {
