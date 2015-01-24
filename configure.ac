@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([libfnv], [0.8.1], [fnvhash@fnvhash.com])
+AC_INIT([libfnv], [0.8.2], [fnvhash@fnvhash.com])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_LIBOBJ_DIR([portable])
 AC_CONFIG_MACRO_DIR([m4])

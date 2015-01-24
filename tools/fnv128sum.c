@@ -10,7 +10,7 @@ void updateHash128(void *context, void *buf, uint64_t length)
 
 void printVersion(void)
 {
-  printf("fnv128 version 0.8.1\n");
+  printf("fnv128 version 0.8.2\n");
 }
 
 void printHelp(void)
