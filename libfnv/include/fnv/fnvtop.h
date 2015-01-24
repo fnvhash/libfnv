@@ -53,9 +53,9 @@ void fnv512UpdateBuffer(struct FNVHash512 *hval, const void *buf, uint64_t len);
 void fnv512UpdateString(struct FNVHash512 *hval, const char *str);
 void fnv512ResultHex(char result[129], const struct FNVHash512 *hval);
 
-void fnv1024Init(uint64_t hval[16]);
-void fnv1024UpdateChar(uint64_t hval[16], unsigned char ch);
-void fnv1024UpdateBuffer(uint64_t hval[16], const void *buf, uint64_t len);
-void fnv1024UpdateString(uint64_t hval[16], const char *str);
-void fnv1024ResultHex(char result[257], const uint64_t hval[16]);
+void fnv1024Init(struct FNVHash1024 *hval);
+void fnv1024UpdateChar(struct FNVHash1024 *hval, unsigned char ch);
+void fnv1024UpdateBuffer(struct FNVHash1024 *hval, const void *buf, uint64_t len);
+void fnv1024UpdateString(struct FNVHash1024 *hval, const char *str);
+void fnv1024ResultHex(char result[257], const struct FNVHash1024 *hval);
 #endif

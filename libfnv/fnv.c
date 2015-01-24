@@ -47,3 +47,9 @@ void fnv64ResultHex(char result[17], const uint64_t *hval) {
   genericResultHex64(result, 8, hval);
 }
 
+void fnvGenericResultHex(char *result, int howBig, const uint64_t *hval) {
+  int i;
+  for (i = 0; i < howBig; i++) {
+    fnv64ResultHex(result+i*16, &hval[howBig-i-1]);
+  }
+}
