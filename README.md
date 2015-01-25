@@ -6,17 +6,28 @@ C language FNV hash function library supporting 32, 64, 128, 256-1024 bit length
 Compilation instructions
 
 Clone from repo:
+
     git clone https://github.com/fnvhash/libfnv.git
+
 or download a release and extract it.
+
     tar xvfz libfnv*tar*
+
 cd into the extracted directory:
+
     cd libfnv*
+
 Use ls to find out if there is a configure script.
+
     ls -l configure
+
 If not, run:
+
     ./autogen
+
 Once the configure script is available, compilation is as normal for all
 autoconf enabled projects:
+
     ./configure
     make
     sudo make install
