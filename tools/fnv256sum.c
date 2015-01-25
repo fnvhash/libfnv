@@ -4,7 +4,7 @@
 
 void updateHash256(void *context, void *buf, uint64_t length)
 {
-  uint64_t *hval = (uint64_t *) context;
+  struct FNVHash256 *hval = (struct FNVHash256 *) context;
   fnv256UpdateBuffer(hval, buf, length);
 }
 
@@ -22,7 +22,7 @@ void printHelp(void)
 
 int main(int argc, char **argv)
 {
-  uint64_t hval[4];
+  struct FNVHash256 hval;
   int i;
   int didSomething = 0;
   char result[65];
@@ -45,16 +45,16 @@ int main(int argc, char **argv)
       printf("Error: unrecognized option: %s\n", cur);
       exit(1);
     }
-    fnv256Init(hval);
-    fnvIterateThroughFile(cur, updateHash256, hval);
-    fnv256ResultHex(result, hval);
+    fnv256Init(&hval);
+    fnvIterateThroughFile(cur, updateHash256, &hval);
+    fnv256ResultHex(result, &hval);
     printf("%s\n", result);
     didSomething = 1;
   }
   if (!didSomething) {
-    fnv256Init(hval);
-    fnvIterateThroughFile("-", updateHash256, hval);
-    fnv256ResultHex(result, hval);
+    fnv256Init(&hval);
+    fnvIterateThroughFile("-", updateHash256, &hval);
+    fnv256ResultHex(result, &hval);
     printf("%s\n", result);
   }
   return 0;

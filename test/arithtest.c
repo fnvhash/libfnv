@@ -156,18 +156,19 @@ void do_test(int is_adder, int is_mult, int bits, const char *leftstr,
     exit(0);
   }
   if (bits == 256) {
-    uint64_t left[4], right[4], result[4];
+    uint64_t left[4], right[4];
+    struct FNVHash256 result;
     read_256_hex(left,leftstr);
     read_256_hex(right,rightstr);
-    memcpy(result, left, 4*sizeof(uint64_t));
+    memcpy(&result, left, 4*sizeof(uint64_t));
     if (is_adder) {
-      fnvAdd256(result, right);
+      fnvAdd256((uint64_t *) &result, right);
     }
     if (is_mult) {
-      fnvMul256(result, right);
+      fnvMul256((uint64_t *) &result, right);
     }
     char buf[65];
-    fnv256ResultHex(buf, result);
+    fnv256ResultHex(buf, &result);
     printf("%s\n", buf);
     exit(0);
   }

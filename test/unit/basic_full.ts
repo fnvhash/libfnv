@@ -95,47 +95,47 @@
   ck_assert_str_eq(result, "0000000001000000000000000000013b");
 
 #test fnv128t006_test
-  uint64_t hval[2];
+  struct FNVHash128 hval;
   char result[33];
-  fnv128Init(hval);
-  fnv128ResultHex(result, hval);
+  fnv128Init(&hval);
+  fnv128ResultHex(result, &hval);
   ck_assert_str_eq(result, "6c62272e07bb014262b821756295c58d");
 
 #test fnv128t007_test
-  uint64_t hval[2];
   char result[33];
-  fnv128Init(hval);
-  fnv128UpdateChar(hval, 'a');
-  fnv128ResultHex(result, hval);
+  struct FNVHash128 hval;
+  fnv128Init(&hval);
+  fnv128UpdateChar(&hval, 'a');
+  fnv128ResultHex(result, &hval);
   ck_assert_str_eq(result, "d228cb696f1a8caf78912b704e4a8964");
 
 #test fnv128t008_test
-  uint64_t hval[2];
+  struct FNVHash128 hval;
   char result[33];
-  fnv128Init(hval);
-  fnv128UpdateString(hval, "foobar");
-  fnv128ResultHex(result, hval);
+  fnv128Init(&hval);
+  fnv128UpdateString(&hval, "foobar");
+  fnv128ResultHex(result, &hval);
   ck_assert_str_eq(result, "343e1662793c64bf6f0d3597ba446f18");
 
 #test fnv128t009_test
-  uint64_t hval[2];
+  struct FNVHash128 hval;
   char result[33];
-  fnv128Init(hval);
-  fnv128UpdateString(hval, "http://fnvhash.com/");
-  fnv128ResultHex(result, hval);
+  fnv128Init(&hval);
+  fnv128UpdateString(&hval, "http://fnvhash.com/");
+  fnv128ResultHex(result, &hval);
   ck_assert_str_eq(result, "86cdf6782de1589b910a92301accbd95");
 
 #test fnv256t010_test
-  uint64_t hval[4];
+  struct FNVHash256 hval;
   char result[65];
-  fnv256Init(hval);
-  fnv256ResultHex(result, hval);
+  fnv256Init(&hval);
+  fnv256ResultHex(result, &hval);
   ck_assert_str_eq(result, "dd268dbcaac550362d98c384c4e576ccc8b1536847b6bbb31023b4c8caee0535");
 
 #test fnv256t011_test
-  uint64_t hval[4];
+  struct FNVHash256 hval;
   char result[65];
-  fnv256Init(hval);
-  fnv256UpdateString(hval, "http://fnvhash.com/");
-  fnv256ResultHex(result, hval);
+  fnv256Init(&hval);
+  fnv256UpdateString(&hval, "http://fnvhash.com/");
+  fnv256ResultHex(result, &hval);
   ck_assert_str_eq(result, "10a807ad5a7774be9b0d3f58aecae921b6314bb94e32366b17e34b27de9c3e45");

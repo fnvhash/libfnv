@@ -1,6 +1,7 @@
 #include "include/fnv/fnvtop.h"
 #include "include/fnv/libfnv.h"
 #include "arith256.h"
+#include "ifnv.h"
 
 uint64_t fnv256_offset[4], fnv256_prime[4];
 
@@ -25,14 +26,14 @@ void fnvKara256DecIn(uint64_t kOut[4], const char *str) {
   }
 }
 
-void fnv256Init(uint64_t hval[4]) {
+void fnv256Init(struct FNVHash256 *hval) {
   if (fnv256_offset[0] == 0) {
     initParameters();
   }
   memcpy(hval, fnv256_offset, 32);
 }
 
-void fnv256UpdateChar(uint64_t hval[4], unsigned char ch) {
+void fnv256UpdateChar(struct FNVHash256 *hval, unsigned char ch) {
   uint64_t k[4];
   if (fnv256_offset[0] == 0) {
     initParameters();
@@ -43,7 +44,7 @@ void fnv256UpdateChar(uint64_t hval[4], unsigned char ch) {
   memcpy(hval, k, 32);
 }
 
-void fnv256UpdateBuffer(uint64_t hval[4], const void *buf, uint64_t len) {
+void fnv256UpdateBuffer(struct FNVHash256 *hval, const void *buf, uint64_t len) {
   size_t i;
   for (i = 0; i < len; ++i) {
     unsigned char ch = ((unsigned char *) buf)[i];
@@ -51,18 +52,11 @@ void fnv256UpdateBuffer(uint64_t hval[4], const void *buf, uint64_t len) {
   }
 }
 
-void fnv256UpdateString(uint64_t hval[4], const char *str) {
+void fnv256UpdateString(struct FNVHash256 *hval, const char *str) {
   fnv256UpdateBuffer(hval, str, strlen(str));
 }
 
-static void genericResultHex256(char *result, int howBig, const uint64_t *hval) {
-  int i;
-  for (i = howBig; i >= 0; i--) {
-    fnv64ResultHex(result+(howBig-i)*16, &hval[i]);
-  }
-}
-
-void fnv256ResultHex(char result[65], const uint64_t hval[4]) {
-  genericResultHex256(result, 3, hval);
+void fnv256ResultHex(char result[65], const struct FNVHash256 *hval) {
+  fnvGenericResultHex(result, 4, (const uint64_t *) hval);
 }
 

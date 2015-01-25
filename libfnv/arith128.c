@@ -1,5 +1,7 @@
 #include "include/fnv/fnvtop.h"
 #include "arith128.h"
+#include "mgmp.h"
+#include "ifnv.h"
 
 void fnvInitArith128from64(struct Arith128 *kOut, uint64_t val) {
   kOut->d[0] = val;
@@ -7,39 +9,11 @@ void fnvInitArith128from64(struct Arith128 *kOut, uint64_t val) {
 }
 
 void fnvArith128add(struct Arith128 *kOut, const struct Arith128 *kIn) {
-  uint64_t oldSmall = kOut->d[0];
-  kOut->d[0] += kIn->d[0];
-  if (oldSmall > kOut->d[0]) {
-    kOut->d[1] += 1;
-  }
-  kOut->d[1] += kIn->d[1];
+  *((__uint128_t *) kOut) += *((__uint128_t *) kIn);
 }
 
-#define IS_BIG_ENDIAN (*(uint16_t *)"\0\xff" < 0x100)
-
 void fnvArith128mul(struct Arith128 *kOut, const struct Arith128 *kIn) {
-  uint64_t o[2], i[2];
-  __uint128_t *bo = (__uint128_t *) &o[0];
-  __uint128_t *bi = (__uint128_t *) &i[0];
-  if (IS_BIG_ENDIAN) {
-    o[1] = kOut->d[0];
-    o[0] = kOut->d[1];
-    i[1] = kIn->d[0];
-    i[0] = kIn->d[1];
-  } else {
-    o[0] = kOut->d[0];
-    o[1] = kOut->d[1];
-    i[0] = kIn->d[0];
-    i[1] = kIn->d[1];
-  }
-  *bo = (*bo) * (*bi);
-  if (IS_BIG_ENDIAN) {
-    kOut->d[0] = o[1];
-    kOut->d[1] = o[0];
-  } else {
-    kOut->d[0] = o[0];
-    kOut->d[1] = o[1];
-  }
+  *((__uint128_t *) kOut) *= *((__uint128_t *) kIn);
 }
 
 void fnvArith128xor8(struct Arith128 *kOut, unsigned char c) {

@@ -25,13 +25,13 @@ void updateHash64(void *context, void *buf, uint64_t length)
 
 void updateHash128(void *context, void *buf, uint64_t length)
 {
-  uint64_t *hval = (uint64_t *) context;
+  struct FNVHash128 *hval = (struct FNVHash128 *) context;
   fnv128UpdateBuffer(hval, buf, length);
 }
 
 void updateHash256(void *context, void *buf, uint64_t length)
 {
-  uint64_t *hval = (uint64_t *) context;
+  struct FNVHash256 *hval = (struct FNVHash256 *) context;
   fnv256UpdateBuffer(hval, buf, length);
 }
 
@@ -50,7 +50,9 @@ void updateHash1024(void *context, void *buf, uint64_t length)
 
 int main(int argc, char **argv)
 {
-  uint64_t hval256[4], hval128[2], hval64;
+  uint64_t hval64;
+  struct FNVHash128 hval128;
+  struct FNVHash256 hval256;
   struct FNVHash512 hval512;
   struct FNVHash1024 hval1024;
   uint32_t hval32;
@@ -74,21 +76,21 @@ int main(int argc, char **argv)
   tf64=getTime();
   printf("FNV64:%d mb/s\n",(int) (len64 /(1e6* (tf64-t064))));
 
-  fnv128Init(hval128);
-  fnvApplyTestPattern(1, updateHash128, hval128);
+  fnv128Init(&hval128);
+  fnvApplyTestPattern(1, updateHash128, &hval128);
 
   t0128=getTime();
-  fnv128Init(hval128);
-  fnvApplyTestPattern(len128, updateHash128, hval128);
+  fnv128Init(&hval128);
+  fnvApplyTestPattern(len128, updateHash128, &hval128);
   tf128=getTime();
   printf("FNV128:%d mb/s\n",(int) (len128 /(1e6* (tf128-t0128))));
 
-  fnv256Init(hval256);
-  fnvApplyTestPattern(1, updateHash256, hval256);
+  fnv256Init(&hval256);
+  fnvApplyTestPattern(1, updateHash256, &hval256);
 
   t0256=getTime();
-  fnv256Init(hval256);
-  fnvApplyTestPattern(len256, updateHash256, hval256);
+  fnv256Init(&hval256);
+  fnvApplyTestPattern(len256, updateHash256, &hval256);
   tf256=getTime();
   printf("FNV256:%d mb/s\n",(int) (len256 /(1e6* (tf256-t0256))));
 

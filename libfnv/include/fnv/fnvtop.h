@@ -35,17 +35,17 @@ void fnv32ResultHex(char result[9], const uint32_t *hval);
 uint64_t fnv64ResultUInt64(const uint64_t *hval);
 void fnv64ResultHex(char result[17], const uint64_t *hval);
 
-void fnv128Init(uint64_t hval[2]);
-void fnv128UpdateChar(uint64_t hval[2], unsigned char ch);
-void fnv128UpdateBuffer(uint64_t hval[2], const void *buf, uint64_t len);
-void fnv128UpdateString(uint64_t hval[2], const char *str);
-void fnv128ResultHex(char result[33], const uint64_t hval[2]);
+void fnv128Init(struct FNVHash128 *hval);
+void fnv128UpdateChar(struct FNVHash128 *hval, unsigned char ch);
+void fnv128UpdateBuffer(struct FNVHash128 *hval, const void *buf, uint64_t len);
+void fnv128UpdateString(struct FNVHash128 *hval, const char *str);
+void fnv128ResultHex(char result[33], const struct FNVHash128 *hval);
 
-void fnv256Init(uint64_t hval[4]);
-void fnv256UpdateChar(uint64_t hval[4], unsigned char ch);
-void fnv256UpdateBuffer(uint64_t hval[4], const void *buf, uint64_t len);
-void fnv256UpdateString(uint64_t hval[4], const char *str);
-void fnv256ResultHex(char result[65], const uint64_t hval[4]);
+void fnv256Init(struct FNVHash256 *hval);
+void fnv256UpdateChar(struct FNVHash256 *hval, unsigned char ch);
+void fnv256UpdateBuffer(struct FNVHash256 *hval, const void *buf, uint64_t len);
+void fnv256UpdateString(struct FNVHash256 *hval, const char *str);
+void fnv256ResultHex(char result[65], const struct FNVHash256 *hval);
 
 void fnv512Init(struct FNVHash512 *hval);
 void fnv512UpdateChar(struct FNVHash512 *hval, unsigned char ch);

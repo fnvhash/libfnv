@@ -19,33 +19,9 @@ void fnvAdd512(uint64_t px[8], uint64_t py[8]) {
 }
 
 void fnvMul512(uint64_t px[8], uint64_t py[8]) {
-#if 1
   uint64_t presult[17];
   fnv_mpn_mul((uint64_t *) presult, (const uint64_t *) px, 8, (const uint64_t *) py, 8);
   memcpy(px, presult, 64);
-#else
-  int i;
-  uint64_t acc[8], dub[8], tdub[8];
-  memset(acc, 0, 64);
-  memcpy(dub, py, 64);
-  for (i = 0; i < 512; ++i) {
-    uint64_t *p = px+(i >> 6);
-    uint64_t m = i & 63;
-    m = 1ULL << m;
-    if ((*p) & m) {
-      fnvAdd512(acc, dub);
-    }
-    memcpy(tdub, dub, 64);
-    int j;
-    for (j = 0; j < 8; ++j) {
-      dub[j] = tdub[j] << 1;
-    }
-    for (j = 1; j < 8; ++j) {
-      dub[j] |= (tdub[j-1] >> 63);
-    }
-  }
-  memcpy(px, acc, 64);
-#endif
 }
 
 void fnv512xor8(uint64_t x[8], unsigned char c) {
