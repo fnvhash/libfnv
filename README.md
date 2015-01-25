@@ -32,7 +32,7 @@ In C, the library follows standard conventions. my_prog.c can be as simple as:
       return 0;
     }
 
-To use, select a bit size from 32, 64, 128, or 256 and enter a command:
+To use, select a bit size from 32, 64, 128, 256, 512, or 1024 and enter a command:
 
     fnv64sum [FILE]
 
@@ -47,3 +47,4 @@ gigabyte of data per second using fnv32sum and fnv64sum, or about
 100 megabytes per second using fnv128sum or fnv256sum.
 
 [Downloads of Releases](http://fnvhashdl.s3-website-us-west-2.amazonaws.com/)
+
