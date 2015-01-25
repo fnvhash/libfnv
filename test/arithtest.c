@@ -98,6 +98,26 @@ void read_128_hex(struct Arith128 *result, const char *str)
   }
 }
 
+void read_64_hex(uint64_t *result, const char *str)
+{
+  uint64_t sixteen = 16;
+  *result = 0;
+  while (*str) {
+    uint64_t cur;
+    int c = *str++;
+    char buf[2];
+    buf[0] = c; buf[1] = 0;
+    int retval = sscanf(buf, "%x", &c);
+    if (retval != 1) {
+      fprintf(stderr, "sscanf %%x read_64_hex error.\n");
+      exit(1);
+    }
+    cur = c;
+    *result *= sixteen;
+    *result += cur;
+  }
+}
+
 void do_test(int is_adder, int is_mult, int bits, const char *leftstr,
                                                   const char *rightstr) {
   if (bits == 16) {
@@ -127,16 +147,17 @@ void do_test(int is_adder, int is_mult, int bits, const char *leftstr,
     exit(0);
   }
   if (bits == 64) {
-    uint64_t left, right, mask = (1ULL << bits) - 1ULL, result;
-    sscanf(leftstr, "%lx", &left);
-    sscanf(rightstr, "%lx", &right);
+    uint64_t left=0, right=0, result;
+    read_64_hex(&left,leftstr);
+    read_64_hex(&right,rightstr);
     if (is_adder) {
-      result = (left + right) & mask;
+      result = (left + right);
     }
     if (is_mult) {
-      result = (left * right) & mask;
+      result = (left * right);
     }
-    printf("%016lx\n", result);
+    uint32_t *smres = (uint32_t *) &result;
+    printf("%08x%08x\n", smres[1], smres[0]);
     exit(0);
   }
   if (bits == 128) {

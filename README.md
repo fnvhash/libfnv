@@ -1,7 +1,7 @@
 libfnv
 ======
 
-C language FNV hash function library supporting 32, 64, 128, and 256 bit lengths.
+C language FNV hash function library supporting 32, 64, 128, 256-1024 bit lengths.
 
 Compilation instructions:
 
