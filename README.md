@@ -71,7 +71,7 @@ All four bit sizes are supported with the corresponding command names.
 
 To test or verify your own FNV implementation, you may use this library or
 another one such as
-this [online FNV hash calculator](http://find.fnvhash.com/).
+this [online FNV hash calculator](http://fnvhash.github.io/fnv-calculator-online/).
 
 On a modern consumer-grade computer, this library is able to process about a
 gigabyte of data per second using fnv32sum and fnv64sum, or about
